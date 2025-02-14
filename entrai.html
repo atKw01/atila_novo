@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métricas</title>
+</head>
+<body>
+    <h1>Cálculo de Métricas</h1>
+    <form id="inputTurma" style="user-select: none;">
+        <h2>Turma:</h2>
+        <input type="radio" id="turma0" name="turma" value="sq3" required>
+        <label for="turma0">SQ3</label>
+        <input type="radio" id="turma1" name="turma" value="qs3" required>
+        <label for="turma1">QS3</label>
+        <input type="radio" id="turma2" name="turma" value="tq2" required>
+        <label for="turma2">TQ2</label>
+        <input type="radio" id="turma3" name="turma" value="tq3" required>
+        <label for="turma3">TQ3</label>
+        <input type="radio" id="turma4" name="turma" value="pjeQuarta" required>
+        <label for="turma4">PJE Quarta</label>
+        <input type="radio" id="turma5" name="turma" value="sat2" required>
+        <label for="turma5">SAT2</label>
+        <input type="radio" id="turma6" name="turma" value="sat3" required>
+        <label for="turma6">SAT3</label>
+        <input type="radio" id="turma7" name="turma" value="sat5" required>
+        <label for="turma7">SAT5</label>
+        <input type="radio" id="turma8" name="turma" value="pjeSabado" required>
+        <label for="turma8">PJE Sábado</label>
+        <input type="radio" id="turma" name="turma" value="geral" required>
+        <label for="turma">Geral</label>
+        <br>
+        <h2 id="alunosTurma">Alunos na turma:</h2>
+        <input type="number" id="alunos" name="alunos" required>
+        <h2>Quantidade de faltas:</h2>
+        <input type="number" id="faltas" name="faltas" required>
+        <br><br>
+        <input type="submit" value="Calcular" >
+    </form>
+    <script src="./dados.js"></script> 
+    <script src="./script.js"></script>
+</body>
+</html>
