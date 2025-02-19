@@ -1,7 +1,7 @@
 var armazem = localStorage;
 
 function salvarDados() {
-    const valorAluno = document.getElementById("alunosTurma").value;
+    const valorAluno = document.getElementById("alunos").value;
     const valorFalta = document.getElementById("faltas").value;
     const valorTurma = document.querySelector("input[name='turma']:checked").value;
 
@@ -12,7 +12,6 @@ function salvarDados() {
         }
     });
     armazem.setItem("turmaDados", JSON.stringify(turmaDados));
-    //window.location.href = './exitcode.html';
 };
 var turmaDados = {
     "turma": [
@@ -61,13 +60,22 @@ var turmaDados = {
             "alunos": 0,
             "faltas": 0,
         },
-    ]
+    ],
+    "dataCiclo": [
+        {	
+            "dia": 0,
+            "mes": 0,
+            "ano": 0,
+        },
+        {
+            "dia": 0,
+            "mes": 0,
+            "ano": 0,
+        },
+    ],
 };
-
-document.getElementById("inputTurma").addEventListener("submit", function() {
+document.getElementById("inputTurma").addEventListener("submit", function(event) {
     event.preventDefault();
     salvarDados();
-    console.log(turmaDados);
+    window.location.href = './exitcode.html';
 });
-
-
