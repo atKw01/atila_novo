@@ -34,9 +34,30 @@
         <input type="number" id="alunos" name="alunos" required>
         <h2>Quantidade de faltas:</h2>
         <input type="number" id="faltas" name="faltas" required>
+        <br>
+        <h2>Matéria</h2>
+        <input type="radio" id="ge" name="materia" value="ge" required>
+        <label for="ge">GE</label>
+        <input type="radio" id="ing" name="materia" value="ing" required>
+        <label for="ing" id="labelIng">Inglês</label>
         <br><br>
         <input type="submit" value="Próximo" >
     </form>
-    <script src="./dados.js"></script> 
+    <script src="./dados.js"></script>
+    <script>
+        document.querySelectorAll('input[name="turma"]').forEach((radio) => {
+            radio.addEventListener('change', function() {
+                const ingRadio = document.getElementById('ing');
+                const ingLabel = document.getElementById('labelIng');
+                if (this.value.startsWith('pje')) {
+                    ingRadio.style.display = 'none';
+                    ingLabel.style.display = 'none';
+                } else {
+                    ingRadio.style.display = 'inline';
+                    ingLabel.style.display = 'inline';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

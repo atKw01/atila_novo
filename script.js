@@ -3,10 +3,10 @@ var turmaDados = JSON.parse(armazem.getItem("turmaDados"));
 
 
 function salvarDatas() {
-    var elementInicio = document.getElementById("dataInicio");
-    var elementFim = document.getElementById("dataFim");
-    var elementInicioId = elementInicio.id;
-    var elementFimId = elementFim.id; 
+    //var elementInicio = document.getElementById("dataInicio");
+    //var elementFim = document.getElementById("dataFim");
+    //var elementInicioId = elementInicio.id;
+    //var elementFimId = elementFim.id; 
 
     const valorDataInicio = new Date(document.getElementById("dataInicio").value);
     const valorDataFim = new Date(document.getElementById("dataFim").value);
@@ -31,10 +31,85 @@ function salvarDatas() {
     armazem.setItem("turmaDados", JSON.stringify(turmaDados));
 };
 
+function contarDias(start, end, weekday) {
+    let count = 0;
+    let current = new Date(start);
+
+    while (current <= end) {
+        if (weekday.includes(current.getDay())) {
+            count++;
+        }
+        current.setDate(current.getDate() + 1);
+    }
+    return count;
+};
+
+function checarDiasDataCiclo(turma) {
+    const dataInicio = new Date(turmaDados.dataCiclo[0].ano, turmaDados.dataCiclo[0].mes - 1, turmaDados.dataCiclo[0].dia);
+    const dataFim = new Date(turmaDados.dataCiclo[1].ano, turmaDados.dataCiclo[1].mes - 1, turmaDados.dataCiclo[1].dia);
+
+
+    const dias = contarDias(dataInicio, dataFim, turma);
+    return dias;
+}
+
+function checarTurma() {
+    let totalDias = 0;
+    turmaDados.turma.forEach((item) => {
+        if (item.alunos > 0 || item.faltas > 0 && item.materia === "ge") {
+            if (item.nome.startsWith("sq")) {
+                totalDias += checarDiasDataCiclo([3]);
+            };
+            if (item.nome.startsWith("qs")) {
+                totalDias += checarDiasDataCiclo([1]);
+            };
+            if (item.nome.startsWith("tq")) {
+                totalDias += checarDiasDataCiclo([4]);
+            };
+            if (item.nome.startsWith("pjeQuarta")) {
+                totalDias += checarDiasDataCiclo([3]);
+            };
+            if (item.nome.startsWith("pjeSabado")) {
+                totalDias += checarDiasDataCiclo([6]);
+            };
+            if (item.nome.startsWith("sat")) {
+                totalDias += checarDiasDataCiclo([6]);
+            };
+        };
+        if (item.alunos > 0 || item.faltas > 0 && item.materia === "ing") {
+            if (item.nome.startsWith("sq")) {
+                totalDias += checarDiasDataCiclo([1]);
+            };
+            if (item.nome.startsWith("qs")) {
+                totalDias += checarDiasDataCiclo([3]);
+            };
+            if (item.nome.startsWith("tq")) {
+                totalDias += checarDiasDataCiclo([2]);
+            };
+            if (item.nome.startsWith("sat")) {
+                totalDias += checarDiasDataCiclo([6]);
+            };
+        };
+    });
+    return totalDias;
+};
+
+function calculo() {
+    let totalPresenca = 0;
+    turmaDados.turma.forEach((item) => {
+        if (item.alunos > 0 || item.faltas > 0) {
+            const dias = checarTurma();
+            const presenca = ((item.alunos - item.faltas) / item.alunos) * 100;
+            totalPresenca += String(presenca).padStart(2, "0");
+        };
+    });
+    return totalPresenca;
+};
+
 document.getElementById("inputData").addEventListener("submit", function(event) {
     event.preventDefault();
     salvarDatas();
-    alert("Datas salvas com sucesso!");
+    alert(calculo());
 
 });
 
